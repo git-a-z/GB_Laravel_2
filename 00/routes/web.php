@@ -150,3 +150,17 @@ Route::group([
     Route::post('/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])
         ->name('update');
 });
+
+// parser
+Route::get('/admin/parser', [App\Http\Controllers\Admin\ParserController::class, 'index'])
+    ->name('admin::parser');
+
+Route::group([
+    'prefix' => 'social',
+    'as' => 'social::',
+], function () {
+    Route::get('/login', [App\Http\Controllers\SocialController::class, 'loginVk'])
+        ->name('login-vk');
+    Route::get('/response', [App\Http\Controllers\SocialController::class, 'responseVk'])
+        ->name('response-vk');
+});

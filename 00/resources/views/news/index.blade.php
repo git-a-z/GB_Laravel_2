@@ -18,6 +18,9 @@
         </div>
     @empty
         {{ $noMoreNews }}
-    @endforelse    
+    @endforelse
+</div>
+<div class='row justify-content-center'>
+    {{ $news->links() }}
 </div>
 @endsection

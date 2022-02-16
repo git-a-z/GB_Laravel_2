@@ -17,7 +17,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index', ['news' => News::all()]);
+        return view('admin.news.index', ['news' => News::orderBy('id', 'desc')->paginate(10)]);
     }
 
     public function delete(News $id)
