@@ -155,6 +155,7 @@ Route::group([
 Route::get('/admin/parser', [App\Http\Controllers\Admin\ParserController::class, 'index'])
     ->name('admin::parser');
 
+// social
 Route::group([
     'prefix' => 'social',
     'as' => 'social::',

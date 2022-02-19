@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Abilities;
 use Auth;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()->is_admin) {
+        if (!\Gate::allows(Abilities::IS_ADMIN)) {
             return redirect()->route('home');
         }
 

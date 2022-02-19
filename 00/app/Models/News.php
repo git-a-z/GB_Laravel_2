@@ -14,8 +14,8 @@ class News extends Model
 
     public static function getNewsByCategoryId(int $id)
     {
-        return static::query()
-            ->where('category_id', $id)
-            ->get();
+        return News::where('category_id', $id)
+            ->orderBy('id', 'desc')
+            ->paginate(10);
     }
 }

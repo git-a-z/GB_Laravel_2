@@ -3,40 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Orchestra\Parser\Xml\Facade as XmlParser;
-use App\Models\News;
+use App\Jobs\NewsParsingjob;
 
 class ParserController extends Controller
 {
     public function index() {
-        $xml = XmlParser::load('https://3dnews.ru/news/rss/');
+        $sources = [
+            'https://news.yandex.ru/auto.rss',
+            'https://news.yandex.ru/auto_racing.rss',
+            'https://news.yandex.ru/gadgets.rss',
+            'https://news.yandex.ru/index.rss',
+            'https://news.yandex.ru/martial_arts.rss',
+            'https://news.yandex.ru/communal.rss',
+            'https://news.yandex.ru/health.rss',
+            'https://news.yandex.ru/games.rss',
+            'https://news.yandex.ru/internet.rss',
+            'https://news.yandex.ru/cyber_sport.rss',
+            'https://news.yandex.ru/movies.rss',
+            'https://news.yandex.ru/cosmos.rss',
+            'https://news.yandex.ru/culture.rss',
+            'https://news.yandex.ru/championsleague.rss',
+            'https://news.yandex.ru/music.rss',
+            'https://news.yandex.ru/nhl.rss',
+        ];
 
-        // dd($xml);
-
-        $data = $xml->parse([
-            'channel_title' => ['uses' => 'channel.title'],
-            'channel_description' => ['uses' => 'channel.description'],
-            'items' => ['uses' => 'channel.item[title,description]'],
-        ]);
-
-        // dd($data);
-
-        $items = $data['items'];
-        foreach($items as $item) {
-            // echo $item['title'];
-            // echo '<br>';
-            // echo $item['description'];
-            // echo '<br>';
-            $news = new News();
-
-            if (isset($news)) {   
-                $news->fill([
-                    'title' => htmlspecialchars($item['title']),
-                    'text' => htmlspecialchars($item['description']),
-                    'category_id' => 4,
-                ]);
-                $news->save();    
-            }  
+        foreach ($sources as $source) {
+            NewsParsingJob::dispatch($source);
         }
 
         return redirect()->route('admin::news::catalog');

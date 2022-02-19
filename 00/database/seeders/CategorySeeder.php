@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
         // $faker = \Faker\Factory::create();
 
         $data = [];
-        $category = ['Sport','Politics','Culture'];
+        $category = ['IT','Politics','Culture'];
 
         foreach ($category as $value) {
             $data[] = [

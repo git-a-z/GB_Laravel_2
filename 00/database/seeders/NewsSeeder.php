@@ -21,7 +21,7 @@ class NewsSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         $data = [];
-        $category = ['Sport','Politics','Culture'];
+        $category = ['IT','Politics','Culture'];
 
         for ($i=0; $i < 10; $i++){
             $category_id = rand(1,3);
